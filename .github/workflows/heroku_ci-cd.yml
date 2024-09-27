@@ -26,8 +26,11 @@ jobs:
             - name: Run lint
               run: npm run lint
 
+            - name: Login Docker
+              run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
             - name: Build Docker Image
               run: docker image build -t tarunkashyap6665/artifixer:1.0 .
-              
+
 
             
