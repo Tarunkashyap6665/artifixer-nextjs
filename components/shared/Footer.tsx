@@ -1,5 +1,4 @@
 "use client"
-import { Typography } from "@material-tailwind/react";
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 export function Footer() {

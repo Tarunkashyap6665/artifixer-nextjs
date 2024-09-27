@@ -1,9 +1,9 @@
 import React from 'react'
 import { useDropzone } from 'react-dropzone';
-import { FiUpload, FiUploadCloud } from 'react-icons/fi';
+import { FiUpload} from 'react-icons/fi';
 
 const DragAndDrop = ({ onDrop }: { onDrop: (acceptedFiles: File[]) => void }) => {
-    const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
+    const { getRootProps, getInputProps, isDragActive} = useDropzone({
         onDrop,
         accept: {
             'image/*': ['.jpeg', '.png', '.jpg', '.gif', '.bmp'], // Use an object to specify the accept type

@@ -4,22 +4,17 @@ import React, { useState, useRef, useCallback, useEffect, useContext } from 'rea
 
 import 'react-image-crop/dist/ReactCrop.css'
 import { useDropzone } from 'react-dropzone'
-import Resizer from "react-image-file-resizer"
 import { FiDownloadCloud, FiImage, FiRotateCw, FiUploadCloud } from 'react-icons/fi'
 
 import { Input } from '@/components/ui/input'
-import { FaLock, FaSpinner } from 'react-icons/fa'
+import { FaSpinner } from 'react-icons/fa'
 import { LockClosedIcon, LockOpenIcon } from '@heroicons/react/24/solid'
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { string } from 'zod'
 import { Slider } from '@material-tailwind/react'
 import { ImageContext } from './shared/context/ImageProvider'
 import DragAndDrop from './shared/DragAndDrop'
+import Img from 'next/image'
 
-type SizeProps = {
-    width: number,
-    height: number
-}
+
 
 export default function ResizeImage() {
     // drag and drop
@@ -31,20 +26,17 @@ export default function ResizeImage() {
     const [width, setWidth] = useState('');
     const [downloadImage, setDownloadImage] = useState<string>('' as string)
     const [height, setHeight] = useState('');
-    const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);
     const [size, setSize] = useState('')
     const [unit, setUnit] = useState("px");
     const [aspectRatio, setAspectRatio] = useState(1);
     const [transformedImageLoading, setTransformedImageLoading] = useState(false)
-    const [error, setError] = useState("");
+    const [, setError] = useState("");
     const [quality, setQuality] = useState(90)
     const [imageType, setImageType] = useState<string | null>(null)
     const [fileSizeType, setFileSizeType] = useState('')
 
     const canvasRef = useRef<HTMLCanvasElement | null>(null)
     const originalImageRef = useRef<HTMLImageElement>(null)
-    const hiddenAnchorRef = useRef<HTMLAnchorElement>(null)
-    const blobUrlRef = useRef('')
     const prevWidth = useRef<string>();
     const prevHeight = useRef<string>();
 
@@ -54,11 +46,12 @@ export default function ResizeImage() {
 
 
     const imageContext = useContext(ImageContext)
+    if(!imageContext) return
 
 
     useEffect(() => {
 
-        setOriginalImage(imageContext?.image!)
+        setOriginalImage(imageContext.image)
 
     }, [])
 
@@ -122,10 +115,7 @@ export default function ResizeImage() {
     }, [width, height, isAspectRatioLock, aspectRatio, image, quality, imageType]);
 
 
-    const handleSizeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setSize(value)
-    }
+
 
     function formatFileSize(bytes: number) {
         const kb = 1024;  // 1 KB = 1024 bytes
@@ -226,9 +216,6 @@ export default function ResizeImage() {
             const decodedString = atob(base64String);  // Decode base64 to binary string
             const imageSizeBytes = decodedString.length;  // Each character represents 1 byte
 
-            // Optionally, convert the size to KB or MB
-            const imageSizeKB = (imageSizeBytes / 1024).toFixed(2);  // In KB
-            const imageSizeMB = (imageSizeBytes / (1024 * 1024)).toFixed(2);  // In MB
 
             formatFileSize(imageSizeBytes)
         }
@@ -270,10 +257,11 @@ export default function ResizeImage() {
                 return size;
         }
     };
-
+    
     useEffect(() => {
-        setWidth(String(Math.round(getConvertedSize(image?.naturalWidth!) * 100) / 100))
-        setHeight(String(Math.round(getConvertedSize(image?.naturalHeight!) * 100) / 100))
+        if(!image) return
+        setWidth(String(Math.round(getConvertedSize(image.naturalWidth) * 100) / 100))
+        setHeight(String(Math.round(getConvertedSize(image.naturalHeight) * 100) / 100))
     }, [unit])
 
 
@@ -292,9 +280,11 @@ export default function ResizeImage() {
                                 <div className="w-full md:w-1/2" >
                                     <h2 className="text-lg font-semibold mb-2">Original Image</h2>
 
-                                    <img
+                                    <Img
                                         ref={originalImageRef}
                                         src={originalImage}
+                                        width={100}
+                                        height={100}
                                         alt="Original uploaded image"
                                         className="w-full h-auto rounded-lg shadow-md"
                                     />
@@ -305,8 +295,10 @@ export default function ResizeImage() {
                                     <h2 className="text-lg font-semibold mb-2 ">Resize Image</h2>
                                     <canvas ref={canvasRef} hidden={true} />
                                     {transformedImage ? (
-                                        <img
+                                        <Img
                                             src={transformedImage}
+                                            width={100}
+                                            height={100}
                                             alt="transformed image"
                                             className="w-full h-auto rounded-lg shadow-md"
                                         />

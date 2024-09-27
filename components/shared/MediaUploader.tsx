@@ -1,10 +1,8 @@
 "use client"
 import { useToast } from "@/hooks/use-toast";
-import { CldImage, CldUploadWidget } from "next-cloudinary"
-import Image from 'next/image';
-import { dataUrl, getImageSize } from '@/lib/utils';
-import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props';
-import { FiUpload, FiUploadCloud } from "react-icons/fi";
+import { CldUploadWidget } from "next-cloudinary"
+
+import { FiUpload} from "react-icons/fi";
 
 type MediaUploaderProps = {
     onValueChange: (value: string) => void;
@@ -15,7 +13,7 @@ type MediaUploaderProps = {
     type: string
 }
 
-const MediaUploader = ({ onValueChange, setFileName, setImage, image, publicId, type }: MediaUploaderProps) => {
+const MediaUploader = ({ onValueChange, setFileName, setImage, publicId}: MediaUploaderProps) => {
     const { toast } = useToast()
 
 

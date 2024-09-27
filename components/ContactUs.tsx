@@ -1,7 +1,7 @@
 "use client"
 import { toast } from "@/hooks/use-toast";
 import React, { useState } from "react";
-import { FaUser, FaEnvelope, FaComment, FaSpinner } from "react-icons/fa";
+import { FaUser, FaEnvelope, FaComment} from "react-icons/fa";
 import { FiRotateCw } from "react-icons/fi";
 import { MdEmail } from "react-icons/md";
 
@@ -41,7 +41,7 @@ const ContactUs = ({ title = "Contact Us" }: { title?: string }) => {
 
 
   const validateField = (name: string, value: string | boolean) => {
-    let newErrors = { ...errors };
+    const newErrors = { ...errors };
 
     switch (name) {
       case "name":
@@ -98,7 +98,7 @@ const ContactUs = ({ title = "Contact Us" }: { title?: string }) => {
       }
     });
     if (Object.keys(newErrors).length === 0) {
-      const response = await fetch('/api/contact', {
+      await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const ContactUs = ({ title = "Contact Us" }: { title?: string }) => {
             {title}
           </h2>
           <p className="mt-4 text-lg text-gray-500">
-            We're here to help with any questions about our AI-powered tools.
+            We&apos;re here to help with any questions about our AI-powered tools.
           </p>
         </div>
         <div className="mt-12">

@@ -17,6 +17,7 @@ import { FiDownloadCloud, FiUploadCloud } from 'react-icons/fi'
 import { Slider, Switch } from '@material-tailwind/react'
 import { ImageContext } from './shared/context/ImageProvider'
 import DragAndDrop from './shared/DragAndDrop'
+import Image from 'next/image'
 
 // This is to demonstate how to make and center a % aspect crop
 // which is a bit trickier so we use some helper functions.
@@ -47,8 +48,6 @@ export default function CropImage() {
 
   const previewCanvasRef = useRef<HTMLCanvasElement>(null)
   const imgRef = useRef<HTMLImageElement>(null)
-  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null)
-  const blobUrlRef = useRef('')
   const [crop, setCrop] = useState<Crop>()
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>()
   const [scale, setScale] = useState(1)
@@ -59,8 +58,9 @@ export default function CropImage() {
   const imageContext = useContext(ImageContext)
 
   useEffect(() => {
+    if(!imageContext) return
 
-    setOriginalImage(imageContext?.image!)
+    setOriginalImage(imageContext.image)
 
   }, [])
 
@@ -215,14 +215,18 @@ export default function CropImage() {
                         onChange={(_, percentCrop) => setCrop(percentCrop)}
                         onComplete={(c) => setCompletedCrop(c)}
                         aspect={aspect}
+                        className='rounded-lg overflow-hidden'
                         // minWidth={400}
                         minHeight={100}
                       // circularCrop
                       >
-                        <img
+                        <Image
                           ref={imgRef}
+                          width={100}
+                          height={100}
                           alt="Crop me"
                           src={originalImage}
+                          className='w-full'
                           style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
                           onLoad={onImageLoad}
                         />

@@ -1,6 +1,6 @@
-import EmailTemplate from '@/components/EmailTemplate';
-import { NextResponse, NextRequest } from 'next/server'
-const nodemailer = require('nodemailer');
+import { NextResponse} from 'next/server'
+import nodemailer from 'nodemailer';
+
 
 // Handles POST requests to /api
 

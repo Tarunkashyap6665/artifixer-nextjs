@@ -18,7 +18,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants"
 import { CustomField } from "./CustomField"
-import { useContext, useEffect, useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import { AspectRatioKey, dataUrl, debounce, deepMergeObjects, download, getImageSize } from "@/lib/utils"
 import MediaUploader from "./MediaUploader"
 import TransformedImage from "./TransformedImage"
@@ -42,10 +42,10 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data)
   const [newTransformation, setNewTransformation] = useState<Transformations | null>(null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [, setIsSubmitting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config)
-  const [isPending, startTransition] = useTransition()
+  const [, startTransition] = useTransition()
   const [fileName, setFileName] = useState(null)
   const router = useRouter()
 
@@ -177,7 +177,6 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
       deepMergeObjects(newTransformation, transformationConfig)
     )
     setNewTransformation(null)
-    let newBalance
     startTransition(async () => {
       await updateCredits(userId, creditFee)
 
@@ -224,8 +223,8 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
             <div >
 
               <div className="mt-2 p-6">
-                <div className="flex flex-col md:flex-row justify-around items-center space-y-4 md:space-y-0 md:space-x-4">
-                  <div className="w-full md:w-1/3" >
+                <div className="flex flex-col md:flex-row justify-around space-y-4 md:space-y-0 md:space-x-4">
+                  <div className="w-full md:w-1/2" >
                     <h2 className="text-lg font-semibold mb-2">Original Image</h2>
 
                     <CldImage

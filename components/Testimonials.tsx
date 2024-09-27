@@ -15,7 +15,7 @@ const Testimonials = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {testimonials.map((testimonial, index) => (
                         <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                            <p className="text-gray-600 mb-4">"{testimonial.comment}"</p>
+                            <p className="text-gray-600 mb-4">&quot;{testimonial.comment}&quot;</p>
                             <p className="font-semibold">{testimonial.name}</p>
                             <div className="flex text-yellow-400 mt-2">
                                 {[...Array(5)].map((_, i) => (

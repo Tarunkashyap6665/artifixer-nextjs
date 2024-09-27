@@ -9,7 +9,7 @@ const nextConfig = {
             },
             {
                 protocol:'https',
-                hostname:'remove-bg.streampeg.com',
+                hostname:'images.unsplash.com',
                 port:''
             }
         ]

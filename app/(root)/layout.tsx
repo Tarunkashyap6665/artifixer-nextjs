@@ -1,4 +1,3 @@
-import CreditProvider from '@/components/shared/context/CreditProvider';
 import ImageProvider from '@/components/shared/context/ImageProvider';
 import { Footer } from '@/components/shared/Footer'
 import { NavigationBar } from '@/components/shared/NavigationBar'

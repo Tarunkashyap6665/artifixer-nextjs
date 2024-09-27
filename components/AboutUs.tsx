@@ -1,9 +1,9 @@
 "use client"
 import React from "react";
-import { AiFillRobot, AiOutlineConsoleSql, AiOutlineBarChart } from "react-icons/ai";
 import { FaGithub, FaGoogle, FaLinkedin } from "react-icons/fa";
 import ContactUs from "./ContactUs";
 import { teamMembers } from "@/constants";
+import Image from "next/image";
 
 const AboutUs = () => {
   
@@ -15,7 +15,7 @@ const AboutUs = () => {
       <section className="py-16 bg-white container">
         <div className="container mx-auto px-4">
           <p className="text-lg text-gray-700 max-w-3xl mx-auto text-center">
-            At Artifixer, we're on a mission to revolutionize content creation and analysis through cutting-edge AI technology. Our platform offers a suite of powerful tools for image, video, and text processing, designed to enhance creativity and boost productivity for individuals and businesses alike.
+            At Artifixer, we&apos;re on a mission to revolutionize content creation and analysis through cutting-edge AI technology. Our platform offers a suite of powerful tools for image, video, and text processing, designed to enhance creativity and boost productivity for individuals and businesses alike.
 
           </p>
         </div>
@@ -56,7 +56,7 @@ const AboutUs = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 ">
           {teamMembers.map((member, index) => (
             <div key={index} className="bg-white rounded-lg shadow-md md:col-start-2 p-6 py-24 w-full">
-              <img src={member.image} alt={member.name} className="w-32 h-32 rounded-full mx-auto mb-4" />
+              <Image src={member.image} alt={member.name} width={8000} height={8000} className="w-32 h-32 rounded-full mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-center">{member.name}</h3>
               <p className="text-gray-600 text-center mb-4">{member.role}</p>
               <div className="flex justify-center space-x-4">

@@ -1,21 +1,20 @@
 "use client"
 
-import { dataUrl, debounce, download, getImageSize } from '@/lib/utils'
-import { CldImage, getCldImageUrl } from 'next-cloudinary'
+import { dataUrl, debounce, getImageSize } from '@/lib/utils'
+import { CldImage } from 'next-cloudinary'
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
-import Image from 'next/image'
 import React from 'react'
 import { FaSpinner } from 'react-icons/fa'
 import { FiImage } from 'react-icons/fi'
 
-const TransformedImage = ({ image, type, transformationConfig, isTransforming, fileName, setIsTransforming, hasDownload = false }: TransformedImageProps) => {
+const TransformedImage = ({ image, type, transformationConfig, isTransforming, setIsTransforming }: TransformedImageProps) => {
 
 
 
   return (
 
 
-    <div className="w-full md:w-1/3" >
+    <div className="w-full md:w-1/2 grid" >
       <h2 className="text-lg font-semibold mb-2">Transformed Image</h2>
       {image?.publicId && transformationConfig ? (
         <CldImage
@@ -25,7 +24,7 @@ const TransformedImage = ({ image, type, transformationConfig, isTransforming, f
           alt={image.title||"Transformed Image"}
           sizes={"(max-width:767px) 100vw, 50vw"}
           placeholder={dataUrl as PlaceholderValue}
-          className="w-full h-auto rounded-lg shadow-md"
+          className="w-full h-auto rounded-lg shadow-md "
           onLoad={() => {
             setIsTransforming && setIsTransforming(false)
           }}

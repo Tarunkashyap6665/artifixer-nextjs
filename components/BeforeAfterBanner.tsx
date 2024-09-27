@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { FaArrowsAltH } from "react-icons/fa";
@@ -5,7 +6,7 @@ import { FaArrowsAltH } from "react-icons/fa";
 const BeforeAfterBanner = () => {
     const [sliderPosition, setSliderPosition] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
-    const containerRef:React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
+    const containerRef: React.RefObject<HTMLDivElement> = useRef<HTMLDivElement>(null);
 
     const handleMouseDown = () => {
         setIsDragging(true);
@@ -16,16 +17,16 @@ const BeforeAfterBanner = () => {
     };
 
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>|React.Touch) => {
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.Touch) => {
         if (isDragging && containerRef.current) {
             const containerRect = containerRef.current.getBoundingClientRect();
             const newPosition = ((e.clientX - containerRect.left) / containerRect.width) * 100;
             setSliderPosition(Math.min(Math.max(newPosition, 0), 100));
         }
     };
-    
 
-    const handleKeyDown = (e:React.KeyboardEvent) => {
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === "ArrowLeft") {
             setSliderPosition((prev) => Math.max(prev - 1, 0));
         } else if (e.key === "ArrowRight") {
@@ -65,18 +66,22 @@ const BeforeAfterBanner = () => {
                             handleMouseMove(touch);
                         }}
                     >
-                        <img
+                        <Image
                             src="/assets/images/unblur-after.jpg"
                             alt="Before: Original image"
+                            width={2725}
+                            height={4088}
                             className="absolute top-0 left-0 w-full h-full object-cover"
                         />
                         <div
                             className="absolute top-0 left-0 w-full h-full overflow-hidden"
                             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                         >
-                            <img
+                            <Image
                                 src="/assets/images/unblur-before.png"
                                 alt="After: Enhanced image"
+                                width={2725}
+                                height={4088}
                                 className="absolute top-0 left-0 w-full h-full object-cover"
                             />
                         </div>

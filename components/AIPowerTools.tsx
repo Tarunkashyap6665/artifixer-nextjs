@@ -1,3 +1,4 @@
+import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -21,7 +22,7 @@ const AIPowerTools = ({ items }: { items: AIPowerToolsProps[] }) => {
                                 <h3 className="text-xl font-semibold mb-2">{tool.title}</h3>
                                 <p className="text-gray-600 text-center mb-4">{tool.description}</p>
                                 <div className="w-full h-40 bg-gray-200 rounded-md mb-4 overflow-hidden">
-                                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8aW1hZ2UgZWRpdGluZ3x8fHx8fDE2ODY3NTc1MzE&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" alt="Image Recolor" className="w-full h-full object-cover" />
+                                    <Image src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8aW1hZ2UgZWRpdGluZ3x8fHx8fDE2ODY3NTc1MzE&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080" width={1080} height={821} alt="Image" className="w-full h-full object-cover" />
                                 </div>
                                 <Link href={tool.route} className={`bg-${tool.color}-500 text-white px-4 py-2 rounded-md hover:bg-${tool.color}-600 transition duration-300`}>Try Now</Link>
                             </div>

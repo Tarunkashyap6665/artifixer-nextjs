@@ -8,6 +8,7 @@ import { ImageContext } from './shared/context/ImageProvider';
 import { PopoverPicker } from './shared/color-picker/PopoverPicker';
 import DragAndDrop from './shared/DragAndDrop';
 import { toast } from '@/hooks/use-toast';
+import Img from 'next/image';
 
 
 const BackgroundRemoval = () => {
@@ -201,19 +202,23 @@ const BackgroundRemoval = () => {
         (
           <div className="mt-2 p-6">
             <div className="flex flex-col md:flex-row justify-around  space-y-4 md:space-y-0 md:space-x-4">
-              <div className="w-full md:w-1/3" hidden={isModifying}>
+              <div className="w-full md:w-1/2" hidden={isModifying}>
                 <h2 className="text-lg font-semibold mb-2">Original Image</h2>
-                <img
+                <Img
                   src={originalImage}
+                  width={100}
+                  height={100}
                   alt="Original uploaded image"
                   className="w-full h-auto rounded-lg shadow-md"
                 />
               </div>
-              <div className="w-full md:w-1/3" >
+              <div className="w-full md:w-1/2 grid" >
                 <h2 className="text-lg font-semibold mb-2">Transformed Image</h2>
                 {transformedImage ? (
-                  <img
+                  <Img
                     src={transformedImage}
+                    width={100}
+                    height={100}
                     alt="Transformed image"
                     className="w-full h-auto rounded-lg shadow-md"
                   />
@@ -224,7 +229,7 @@ const BackgroundRemoval = () => {
                   </div>
                 )}
               </div>
-              <div className="w-full md:w-1/3" hidden={!isModifying}>
+              <div className="w-full md:w-1/2" hidden={!isModifying}>
                 <h2 className="text-lg font-semibold mb-2">Modify Image</h2>
                 <canvas ref={canvasRef} className="w-full h-auto rounded-lg shadow-md" hidden={!isModifying}></canvas>
 
