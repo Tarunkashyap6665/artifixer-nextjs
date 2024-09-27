@@ -376,3 +376,14 @@ export const defaultValues = {
 };
 
 export const creditFee = -1;
+
+export const teamMembers = [
+  {
+    name: "Tarun Kashyap",
+    role: "Lead Developer",
+    image: "/assets/images/user.jpg",
+    linkedin: "http://linkedin.com/in/tarun-kashyap-246087202",
+    gmail: "mailto:kashyapashish6665@gmail.com",
+    github: "https://github.com/Tarunkashyap6665"
+  }
+];

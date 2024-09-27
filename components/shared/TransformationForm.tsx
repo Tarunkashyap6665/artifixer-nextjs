@@ -12,15 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 
-import { Button } from "@/components/ui/button"
 import {
   Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { aspectRatioOptions, creditFee, defaultValues, transformationTypes } from "@/constants"
@@ -34,7 +27,6 @@ import { CldImage, getCldImageUrl } from "next-cloudinary"
 import { addImage, updateImage } from "@/lib/actions/image.actions"
 import { useRouter } from "next/navigation"
 import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
-import { CreditContext } from "./context/CreditProvider"
 import { FiDownloadCloud, FiRotateCw } from "react-icons/fi"
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props"
 import { toast } from "@/hooks/use-toast"
@@ -57,8 +49,6 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
   const [fileName, setFileName] = useState(null)
   const router = useRouter()
 
-  // context
-  const creditContext = useContext(CreditContext)
 
   const initialValues = data && action === 'Update' ? {
     title: data?.title,
@@ -190,8 +180,6 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     let newBalance
     startTransition(async () => {
       await updateCredits(userId, creditFee)
-      newBalance = creditContext.creditBalances + creditFee
-      console.log(newBalance)
 
     })
     toast({

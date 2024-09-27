@@ -148,3 +148,35 @@ declare type CreateUserParams = {
       imageTwo:string
     }
   }
+
+
+ declare type AIPowerToolsProps = {
+    title: string,
+    route: string,
+    icon: React.ElementType,
+    description: string,
+    longDescription: string,
+    mediumDescription: string,
+    shortDescription: string,
+    color:string
+}
+
+declare type FormDataProps = {
+  name: string,
+  email: string,
+  subject: string,
+  message: string,
+  subscribe: boolean
+}
+
+declare type ErrorProps = {
+  name?: string;
+  email?: string;
+  subject?: string;
+  message?: string;
+}
+
+declare type ChatMessageProp = {
+  text: string;
+  sender: "user" | "bot";
+};

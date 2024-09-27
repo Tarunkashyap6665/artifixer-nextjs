@@ -1,4 +1,3 @@
-import Header from '@/components/shared/Header'
 import TransformationForm from '@/components/shared/TransformationForm'
 import { transformationTypes } from '@/constants'
 import { getUserById } from '@/lib/actions/user.actions'
@@ -23,8 +22,7 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
   if (!userId) redirect('/sign-in')
 
   const user = await getUserById(userId);
-
-  // const user = await getUserById(userId);
+  
   return (
     <div className=" py-16  bg-gray-100 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">

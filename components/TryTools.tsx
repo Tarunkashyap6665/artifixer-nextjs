@@ -1,13 +1,12 @@
 import React from 'react'
-import { FiUpload } from 'react-icons/fi'
-import BackgroundRemoval from './shared/BackgroundRemoval/BackgroundRemoval'
 import Link from 'next/link'
 import { SignedOut } from '@clerk/nextjs'
+import BackgroundRemoval from './BackgroundRemoval'
 
 const TryTools = () => {
     return (
         <div className='bg-gradient-to-br from-purple-100 to-indigo-200' id='trytools'>
-            <div className="container mx-auto px-4 py-12 ">
+            <div className="max-w-screen-lg mx-auto md:px-4 py-12 ">
                 <section className="bg-gray-100 rounded-lg shadow-xl p-8 my-16">
                     <h3 className="text-2xl font-bold text-gray-800 mb-6">
                         Try Background Removal

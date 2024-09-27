@@ -1,18 +1,7 @@
-import { StarIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import React from 'react'
-import { FaCrop, FaEraser, FaExpand, FaPaintBrush } from 'react-icons/fa'
 
-type AIPowerToolsProps = {
-    title: string,
-    route: string,
-    icon: React.ElementType,
-    description: string,
-    longDescription: string,
-    mediumDescription: string,
-    shortDescription: string,
-    color:string
-}
+
 const AIPowerTools = ({ items }: { items: AIPowerToolsProps[] }) => {
 
 

@@ -1,8 +1,8 @@
-import BackgroundRemoval from '@/components/shared/BackgroundRemoval/BackgroundRemoval';
-import CropImage from '@/components/shared/crop/CropImage'
-import ResizeImage from '@/components/shared/ResizeImage/ResizeImage';
+
+import BackgroundRemoval from '@/components/BackgroundRemoval';
+import CropImage from '@/components/CropImage';
+import ResizeImage from '@/components/ResizeImage';
 import { Metadata } from 'next';
-import { useRouter } from 'next/router';
 import React from 'react'
 
 export const generateMetadata = ({ params: { type } }: { params: { type: string } }): Metadata => {
@@ -32,7 +32,7 @@ const toolsType = {
   },
 }
 type ToolType = 'crop-image' | 'resize-image' | 'background-removal';
-const page = ({ params: { type } }: { params: { type: string } }) => {
+const ToolsPage = ({ params: { type } }: { params: { type: string } }) => {
   const tools = toolsType[type as ToolType];
   return (
     <>
@@ -59,4 +59,4 @@ const page = ({ params: { type } }: { params: { type: string } }) => {
 
 }
 
-export default page
+export default ToolsPage

@@ -20,7 +20,6 @@ const MediaUploader = ({ onValueChange, setFileName, setImage, image, publicId, 
 
 
     const onUploadSuccessHandler = (result: any) => {
-        console.log(result)
         setImage((prevState: any) => ({
             ...prevState,
             publicId: result?.info?.public_id,

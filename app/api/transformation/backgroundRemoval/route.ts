@@ -80,17 +80,24 @@ export async function POST(req: Request) {
 
   try {
     const response = await fetch(url, options);
-    const result = await response.arrayBuffer();
-    // Convert ArrayBuffer to Buffer
-    const buffer = Buffer.from(result);
 
-    const base64Image = buffer.toString('base64');
+    if(response.status==200){
 
-    // Create data URL
-    const imgSrc = `data:image/png;base64,${base64Image}`;
-
-    
-    return NextResponse.json({ result: imgSrc }, { status: 200 });
+      const result = await response.arrayBuffer();
+      // Convert ArrayBuffer to Buffer
+      const buffer = Buffer.from(result);
+  
+      const base64Image = buffer.toString('base64');
+  
+      // Create data URL
+      const imgSrc = `data:image/png;base64,${base64Image}`;
+  
+      
+      return NextResponse.json({ result: imgSrc }, { status: 200 });
+    }
+    if(response.status==400){
+      return NextResponse.json({ title:"Bad Request",result: "Use a different image as the quality is not good.." }, { status: 400 });
+    }
   } catch (error) {
     console.error('Error:', error);
     return NextResponse.json({ error: 'Failed to process the request' }, { status: 500 });
