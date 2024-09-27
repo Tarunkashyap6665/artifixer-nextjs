@@ -46,16 +46,40 @@ export default function ResizeImage() {
 
 
     const imageContext = useContext(ImageContext)
-    if(!imageContext) return
-
 
     useEffect(() => {
+        if (!image) return
+        setWidth(String(Math.round(getConvertedSize(image.naturalWidth) * 100) / 100))
+        setHeight(String(Math.round(getConvertedSize(image.naturalHeight) * 100) / 100))
+    }, [unit])
+
+    
+    
+    useEffect(() => {
+        if (!imageContext) return
 
         setOriginalImage(imageContext.image)
 
     }, [])
 
+    useEffect(() => {
+        if (isAspectRatioLock && image) {
+            if (width && prevHeight.current == height) {
+                // Check if width has changed, execute only for width change
+                setHeight(String(Math.round(Number(width) / aspectRatio)));
+            } else if (height && width == prevWidth.current) {
+                // Check if height has changed, execute only for height change
+                setWidth(String(Math.round(Number(height) * aspectRatio)));
+            }
+        }
+        // Always run this part regardless of the conditions
+        setTransformedImage(null);
 
+        // Track previous values to differentiate between changes
+        prevWidth.current = width;
+        prevHeight.current = height;
+
+    }, [width, height, isAspectRatioLock, aspectRatio, image, quality, imageType]);
 
 
 
@@ -95,24 +119,7 @@ export default function ResizeImage() {
         multiple: false,
     });
 
-    useEffect(() => {
-        if (isAspectRatioLock && image) {
-            if (width && prevHeight.current == height) {
-                // Check if width has changed, execute only for width change
-                setHeight(String(Math.round(Number(width) / aspectRatio)));
-            } else if (height && width == prevWidth.current) {
-                // Check if height has changed, execute only for height change
-                setWidth(String(Math.round(Number(height) * aspectRatio)));
-            }
-        }
-        // Always run this part regardless of the conditions
-        setTransformedImage(null);
 
-        // Track previous values to differentiate between changes
-        prevWidth.current = width;
-        prevHeight.current = height;
-
-    }, [width, height, isAspectRatioLock, aspectRatio, image, quality, imageType]);
 
 
 
@@ -257,12 +264,8 @@ export default function ResizeImage() {
                 return size;
         }
     };
-    
-    useEffect(() => {
-        if(!image) return
-        setWidth(String(Math.round(getConvertedSize(image.naturalWidth) * 100) / 100))
-        setHeight(String(Math.round(getConvertedSize(image.naturalHeight) * 100) / 100))
-    }, [unit])
+
+
 
 
 
@@ -358,7 +361,7 @@ export default function ResizeImage() {
 
                                             <span className='font-semibold w-1/2 px-1 md:px-0'>Quality : {quality}</span>
 
-                                            <Slider color='deep-purple' className='w-full' step={1} min={1} value={quality} max={100} onChange={(e) => setQuality(Number(e.target.value))} placeholder={undefined} onPointerEnter={()=>{}} onPointerLeave={undefined} />
+                                            <Slider color='deep-purple' className='w-full' step={1} min={1} value={quality} max={100} onChange={(e) => setQuality(Number(e.target.value))} placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                                         </div>
                                     </div>
                                     <div className='flex md:gap-8 justify-between mt-3 md:mt-0 md:justify-around md:w-1/2'>
@@ -409,7 +412,7 @@ export default function ResizeImage() {
                                 ) : (
                                     <button
                                         onClick={handleTransform}
-                                        className={`mt-6 mb-3 w-full  py-2 px-4 rounded-md  focus:outline-none focus:ring-2  focus:ring-offset-2  flex items-center justify-center ${transformedImageLoading?'bg-blue-200 text-gray-200':' bg-blue-600 transition duration-300 ease-in-out transform hover:scale-[101%] text-white hover:bg-blue-700 focus:ring-blue-500'}`} disabled={transformedImageLoading}
+                                        className={`mt-6 mb-3 w-full  py-2 px-4 rounded-md  focus:outline-none focus:ring-2  focus:ring-offset-2  flex items-center justify-center ${transformedImageLoading ? 'bg-blue-200 text-gray-200' : ' bg-blue-600 transition duration-300 ease-in-out transform hover:scale-[101%] text-white hover:bg-blue-700 focus:ring-blue-500'}`} disabled={transformedImageLoading}
                                         hidden={!originalImage || !!transformedImage}
                                     >
                                         <FiRotateCw className="mr-2" />

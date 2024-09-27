@@ -261,12 +261,12 @@ export default function CropImage() {
                     <div className='flex gap-2'>
 
 
-                      <span className='font-semibold'>Aspect Ratio : </span><Switch color='cyan' defaultChecked onClick={handleToggleAspectClick} onPointerEnter={()=>{}} onPointerLeave={undefined} crossOrigin={undefined} />
+                      <span className='font-semibold'>Aspect Ratio : </span><Switch color='cyan' defaultChecked onClick={handleToggleAspectClick} onPointerEnter={() => { } } onPointerLeave={undefined} crossOrigin={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                     </div>
                   </div>
                   <div className="w-full px-3 my-3 py-2">
                     <span className='font-semibold '>Scale : {scale}</span>
-                    <Slider color='amber' className='mt-1' step={1} min={1} max={100} value={scale||1} onChange={(e) => setScale(Number(e.target.value))} placeholder={undefined} onPointerEnter={()=>{}} onPointerLeave={undefined} />
+                    <Slider color='amber' className='mt-1' step={1} min={1} max={100} value={scale || 1} onChange={(e) => setScale(Number(e.target.value))} placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} />
                   </div>
                   <div className="w-full px-3 my-3 py-2">
                     <span className='font-semibold '>Rotate : {rotate}</span><br />

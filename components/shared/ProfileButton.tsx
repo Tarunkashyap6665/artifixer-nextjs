@@ -27,13 +27,12 @@ export function ProfileButton({ user, showName = false }: { user: any, showName?
             variant="circular"
             alt={user.username || "Avatar"}
             className=" w-8 h-8"
-            src={user?.photo}
-          />
+            src={user?.photo} placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}          />
           {showName && <span className="ml-2">{user.firstName} {user.lastName}</span>}
         </div>
       </MenuHandler>
-      <MenuList className="ml-5 mt-3 lg:mt-4">
-        <MenuItem className="flex items-center gap-2" onClick={handleProfile}>
+      <MenuList className="ml-5 mt-3 lg:mt-4"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
+        <MenuItem className="flex items-center gap-2" onClick={handleProfile}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           <svg
             width="16"
             height="16"
@@ -49,20 +48,20 @@ export function ProfileButton({ user, showName = false }: { user: any, showName?
             />
           </svg>
 
-          <Typography variant="small" className="font-medium">
+          <Typography variant="small" className="font-medium"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             My Profile
           </Typography>
         </MenuItem>
-        <MenuItem className="flex items-center gap-2" >
+        <MenuItem className="flex items-center gap-2"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} >
 
         <FaCoins/>
 
-          <Typography variant="small" className="font-medium">
+          <Typography variant="small" className="font-medium"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Balance: {user.creditBalance}
           </Typography>
         </MenuItem>
         <hr className="my-2 border-blue-gray-50" />
-        <MenuItem className="flex items-center gap-2 " onClick={() => signOut({ redirectUrl: '/' })}>
+        <MenuItem className="flex items-center gap-2 " onClick={() => signOut({ redirectUrl: '/' })}  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
           <svg
             width="16"
             height="14"
@@ -77,7 +76,7 @@ export function ProfileButton({ user, showName = false }: { user: any, showName?
               fill="#90A4AE"
             />
           </svg>
-          <Typography variant="small" className="font-medium">
+          <Typography variant="small" className="font-medium"  placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
             Sign Out
           </Typography>
         </MenuItem>

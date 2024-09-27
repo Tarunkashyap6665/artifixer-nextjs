@@ -23,20 +23,20 @@ import { ProfileButton } from './ProfileButton';
 
 function NavList() {
   return (
-    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1" placeholder={undefined} onPointerEnter={() => { }} onPointerLeave={undefined}>
+    <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1" placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       {navLinks.map((link, key) => (
         link.isMegaMenu ? (
-          <MegaMenu label={link.label} menuItems={link.subItems!} key={key} />
+          <MegaMenu label={link.label} menuItems={link.subItems as MegaMenuProps} key={key} />
         ) : (
 
           <Typography
-            as="a"
-            href={link.route}
+              as="a"
+              href={link.route}
 
-            variant="h6"
-            color="white"
-            className="font-medium" placeholder={undefined} onPointerEnter={() => { }} onPointerLeave={undefined} key={key}  >
-            <ListItem className="flex items-center gap-2 py-2 pr-4 hover:bg-black/10  hover:text-gray-200 active:bg-black/10 active:text-gray-200 focus:bg-black/10 focus:text-gray-200 "  placeholder={undefined} onPointerEnter={() => { }} onPointerLeave={undefined} >{link.label}</ListItem>
+              variant="h6"
+              color="white"
+              className="font-medium" placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined} key={key}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}  >
+            <ListItem className="flex items-center gap-2 py-2 pr-4 hover:bg-black/10  hover:text-gray-200 active:bg-black/10 active:text-gray-200 focus:bg-black/10 focus:text-gray-200 " placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined} >{link.label}</ListItem>
           </Typography>
 
         )
@@ -58,7 +58,7 @@ export function NavigationBar({user}:{user:any}) {
   }, []);
 
   return (<>
-    <Navbar className="bg-gradient-to-r from-purple-900 to-indigo-900 border-none mx-auto max-w-full rounded-none px-4 py-3" placeholder={undefined} onPointerEnter={() => { }} onPointerLeave={undefined}>
+    <Navbar className="bg-gradient-to-r from-purple-900 to-indigo-900 border-none mx-auto max-w-full rounded-none px-4 py-3" placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       <div className='max-w-screen-2xl mx-auto'>
         <div className="flex items-center justify-between text-white">
 
@@ -86,7 +86,7 @@ export function NavigationBar({user}:{user:any}) {
             variant="text"
             color="white"
             className="lg:hidden"
-            onClick={() => setOpenNav(!openNav)} placeholder={undefined} onPointerEnter={() => { }} onPointerLeave={undefined}        >
+            onClick={() => setOpenNav(!openNav)} placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}        >
             {openNav ? (
               <XMarkIcon className="h-6 w-6" strokeWidth={2} />
             ) : (

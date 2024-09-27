@@ -180,3 +180,15 @@ declare type ChatMessageProp = {
   text: string;
   sender: "user" | "bot";
 };
+
+
+declare type MegaMenuProps = {
+  title: string,
+  route: string,
+  icon: typeof StarIcon,
+  description: string,
+  longDescription: string,
+  mediumDescription: string,
+  shortDescription: string,
+  color: string
+}[];
