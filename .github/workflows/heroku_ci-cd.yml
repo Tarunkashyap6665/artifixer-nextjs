@@ -7,6 +7,7 @@ on:
 
 jobs:
     test:
+        name: Check linting and docker image build
         runs-on: ubuntu-latest
 
         steps:
@@ -31,6 +32,44 @@ jobs:
 
             - name: Build Docker Image
               run: docker image build -t tarunkashyap6665/artifixer:1.0 .
+    
+    deploy: 
+        name: Deploy to Heroku
+        needs: test
+        if: (github.ref == 'refs/heads/main' && github.event_name == 'push') || github.event_name == 'workflow_dispatch'
+        runs-on: ubuntu-latest
 
+        steps: 
+            - name: Get Code
+              uses: actions/checkout@v4
+              with:
+                persist-credentials: false
+            
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: '20.16.0'
+              
+            - name: Install dependencies
+              run: npm install
 
+            - name: Build Docker Image
+              run: docker compose up --build -d
+
+            - name: Log in to the Heroku Container Registry
+              run: heroku container:login
+              env:
+                HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+
+            - name: Tag and Push Docker Image to Heroku
+              run: |
+                docker tag tarunkashyap6665/artifixer:1.0 registry.heroku.com/tarunkashyap6665/artifixer/web
+                docker push registry.heroku.com/tarunkashyap6665/artifixer/web
+              env:
+                HEROKU_API_KEY: ${{secrets.HEROKU_API_KEY}}
+
+            - name: Release the Image to Heroku
+              run: heroku container:release web -a artifixer
+              env:
+                HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
             
