@@ -1,7 +1,0 @@
-
-services:
-  web:
-    build: .
-    image: tarunkashyap6665/artifixer:1.0
-    ports:
-      - '8080:3000'
