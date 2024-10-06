@@ -2,7 +2,6 @@
 
 import { revalidatePath } from "next/cache";
 
-import getOrCreateDB from "../database/dbSetup";
 import { databases } from "../database/config";
 import { DB_NAME, USER_COLLECTION } from "../database/name";
 import { ID, Query } from "node-appwrite";
@@ -11,8 +10,6 @@ import { handleError } from "@/lib/utils";
 // CREATE
 export async function createUser(user: CreateUserParams) {
   try {
-    await getOrCreateDB();
-
     const newUser = await databases.createDocument(
       DB_NAME,
       USER_COLLECTION,
@@ -26,17 +23,24 @@ export async function createUser(user: CreateUserParams) {
   }
 }
 
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // READ
 export async function getUserById(userId: string) {
   try {
     // await delay(1000)
-    await getOrCreateDB();
-
-    const user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
+    let user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
       Query.equal("clerkId", userId),
     ]);
 
-    if (!user.documents[0]) throw new Error("User not found when Reading...");
+    if (!user.documents[0]) {
+      delay(400);
+      user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
+        Query.equal("clerkId", userId),
+      ]);
+    }
 
     return JSON.parse(JSON.stringify(user.documents[0]));
   } catch (error) {
@@ -47,8 +51,6 @@ export async function getUserById(userId: string) {
 // UPDATE
 export async function updateUser(clerkId: string, user: UpdateUserParams) {
   try {
-    await getOrCreateDB();
-
     const usr = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
       Query.equal("clerkId", clerkId),
     ]);
@@ -71,19 +73,23 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
 // DELETE
 export async function deleteUser(clerkId: string) {
   try {
-    await getOrCreateDB();
-
     // Find user to delete
-    const userToDelete = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
-      Query.equal("clerkId", clerkId),
-    ]);
+    const userToDelete = await databases.listDocuments(
+      DB_NAME,
+      USER_COLLECTION,
+      [Query.equal("clerkId", clerkId)]
+    );
 
     if (!userToDelete.documents[0]) {
       throw new Error("User not found");
     }
 
     // Delete user
-    const deletedUser = await databases.deleteDocument(DB_NAME, USER_COLLECTION, userToDelete.documents[0].$id)
+    const deletedUser = await databases.deleteDocument(
+      DB_NAME,
+      USER_COLLECTION,
+      userToDelete.documents[0].$id
+    );
     revalidatePath("/");
 
     return deletedUser ? JSON.parse(JSON.stringify(deletedUser)) : null;
@@ -95,20 +101,21 @@ export async function deleteUser(clerkId: string) {
 // USE CREDITS
 export async function updateCredits(userId: string, creditFee: number) {
   try {
-    await getOrCreateDB();
+    const usr = await databases.getDocument(DB_NAME, USER_COLLECTION, userId);
 
-    const usr = await databases.getDocument(DB_NAME, USER_COLLECTION, userId)
-
-    const updatedUserCredits = await databases.updateDocument(DB_NAME, USER_COLLECTION, userId, {
-      creditBalance:usr.creditBalance + creditFee
-    })
-
-    
+    const updatedUserCredits = await databases.updateDocument(
+      DB_NAME,
+      USER_COLLECTION,
+      userId,
+      {
+        creditBalance: usr.creditBalance + creditFee,
+      }
+    );
 
     if (!updatedUserCredits) throw new Error("User credits update failed");
 
     return JSON.parse(JSON.stringify(updatedUserCredits));
   } catch (error) {
     handleError(error);
-  } 
+  }
 }

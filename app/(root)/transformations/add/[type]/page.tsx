@@ -3,7 +3,6 @@ import { transformationTypes } from '@/constants'
 import { getUserById } from '@/lib/appwrite/actions/user.actions'
 import { auth } from '@clerk/nextjs/server'
 import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
 import React from 'react'
 
 export const generateMetadata = ({ params: { type } }: SearchParamProps): Metadata => {
@@ -19,9 +18,8 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
   const { userId } = auth();
 
 
-  if (!userId) redirect('/sign-in')
 
-  const user = await getUserById(userId);
+  const user = await getUserById(userId!);
   
   return (
     <div className=" py-16  bg-gray-100 px-4 sm:px-6 lg:px-8">
