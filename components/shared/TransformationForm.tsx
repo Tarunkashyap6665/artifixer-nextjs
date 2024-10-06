@@ -22,10 +22,8 @@ import { useEffect, useState, useTransition } from "react"
 import { AspectRatioKey, dataUrl, debounce, deepMergeObjects, download, getImageSize } from "@/lib/utils"
 import MediaUploader from "./MediaUploader"
 import TransformedImage from "./TransformedImage"
-import { updateCredits } from "@/lib/actions/user.actions"
+import { updateCredits } from "@/lib/appwrite/actions/user.actions"
 import { CldImage, getCldImageUrl } from "next-cloudinary"
-import { addImage, updateImage } from "@/lib/actions/image.actions"
-import { useRouter } from "next/navigation"
 import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
 import { FiDownloadCloud, FiRotateCw } from "react-icons/fi"
 import { PlaceholderValue } from "next/dist/shared/lib/get-img-props"
@@ -42,12 +40,10 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
   const transformationType = transformationTypes[type];
   const [image, setImage] = useState(data)
   const [newTransformation, setNewTransformation] = useState<Transformations | null>(null);
-  const [, setIsSubmitting] = useState(false);
   const [isTransforming, setIsTransforming] = useState(false);
   const [transformationConfig, setTransformationConfig] = useState(config)
   const [, startTransition] = useTransition()
   const [fileName, setFileName] = useState(null)
-  const router = useRouter()
 
 
   const initialValues = data && action === 'Update' ? {
@@ -64,71 +60,6 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     defaultValues: initialValues,
   })
 
-  // 2. Define a submit handler.
-  async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsSubmitting(true);
-
-    if (data || image) {
-      const transformationUrl = getCldImageUrl({
-        width: image?.width,
-        height: image?.height,
-        src: image?.publicId,
-        ...transformationConfig
-      })
-
-      const imageData = {
-        publicId: image?.publicId,
-        transformationType: type,
-        width: image?.width,
-        height: image?.height,
-        config: transformationConfig,
-        secureURL: image?.secureURL,
-        transformationURL: transformationUrl,
-        aspectRatio: values.aspectRatio,
-        prompt: values.prompt,
-        color: values.color,
-      }
-
-      if (action === 'Add') {
-        try {
-          const newImage = await addImage({
-            image: imageData,
-            userId,
-            path: '/'
-          })
-
-          if (newImage) {
-            form.reset()
-            setImage(data)
-            router.push(`/transformations/${newImage._id}`)
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-
-      if (action === 'Update') {
-        try {
-          const updatedImage = await updateImage({
-            image: {
-              ...imageData,
-              _id: data._id
-            },
-            userId,
-            path: `/transformations/${data._id}`
-          })
-
-          if (updatedImage) {
-            router.push(`/transformations/${updatedImage._id}`)
-          }
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    }
-
-    setIsSubmitting(false)
-  }
 
 
   const downloadHandler = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
@@ -198,7 +129,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form className="space-y-4">
         {creditBalance < Math.abs(creditFee) && <InsufficientCreditsModal />}
 
         <CustomField
@@ -329,13 +260,6 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
 
             <div className='flex flex-col gap-4 px-2 py-3'>
 
-              {/* <Button
-            type="submit"
-            className="submit-button capitalize"
-            disabled={isSubmitting}
-          >
-            {isSubmitting ? 'Submitting...' : 'Save Image'}
-          </Button> */}
               <button
                 onClick={onTransformHandler}
                 disabled={isTransforming || newTransformation === null}
