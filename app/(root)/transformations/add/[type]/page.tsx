@@ -1,6 +1,6 @@
 import TransformationForm from '@/components/shared/TransformationForm'
 import { transformationTypes } from '@/constants'
-import { getUserById } from '@/lib/actions/user.actions'
+import { getUserById } from '@/lib/appwrite/actions/user.actions'
 import { auth } from '@clerk/nextjs/server'
 import { Metadata } from 'next'
 import { redirect } from 'next/navigation'

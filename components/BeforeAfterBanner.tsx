@@ -59,7 +59,7 @@ const BeforeAfterBanner = () => {
                     </div>
                     <div
                         ref={containerRef}
-                        className="relative w-full md:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-lg shadow-xl"
+                        className="relative w-full lg:mx-[100px] md:w-1/2 h-[300px] sm:h-[400px] md:h-[500px] overflow-hidden rounded-lg shadow-xl"
                         onMouseMove={handleMouseMove}
                         onTouchMove={(e) => {
                             const touch = e.touches[0];
@@ -67,10 +67,10 @@ const BeforeAfterBanner = () => {
                         }}
                     >
                         <Image
-                            src="/assets/images/unblur-after.jpg"
+                            src="/assets/images/banner_after.png"
                             alt="Before: Original image"
-                            width={2725}
-                            height={4088}
+                            width={1080}
+                            height={1440}
                             className="absolute top-0 left-0 w-full h-full object-cover"
                         />
                         <div
@@ -78,10 +78,10 @@ const BeforeAfterBanner = () => {
                             style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                         >
                             <Image
-                                src="/assets/images/unblur-before.png"
+                                src="/assets/images/banner_before.png"
                                 alt="After: Enhanced image"
-                                width={2725}
-                                height={4088}
+                                width={1080}
+                                height={1440}
                                 className="absolute top-0 left-0 w-full h-full object-cover"
                             />
                         </div>
