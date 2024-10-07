@@ -7,6 +7,13 @@ export default async function getOrCreateDB() {
     await databases.get(DB_NAME);
     try {
       await databases.getCollection(DB_NAME, USER_COLLECTION);
+      try {
+        
+        await databases.getAttribute(DB_NAME,USER_COLLECTION,"clerkId")
+      } catch (error) {
+        await databases.deleteCollection(DB_NAME,USER_COLLECTION)
+        await createUsersCollection()
+      }
     } catch (error) {
       await createUsersCollection();
       console.log("Collection created");

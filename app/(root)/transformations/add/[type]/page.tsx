@@ -18,10 +18,12 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
   const transformation = transformationTypes[type];
   const { userId } = auth();
   let user;
+  let id;
 
   try {
 
     user = await getUserByIdAppwrite(userId!);
+    id=user.$id
     const isUserExistInMongoDB=await getUserByIdMongoDB(userId!)
     if(isUserExistInMongoDB && isUserExistInMongoDB._id){
         await deleteUserMongoDB(userId!)
@@ -29,6 +31,7 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
   } catch (error) {
 
     user = await getUserByIdMongoDB(userId!);
+    id=user._id
   }
 
 
@@ -47,7 +50,7 @@ const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps)
           <div className="bg-white shadow-lg rounded-lg">
             <TransformationForm
               action='Add'
-              userId={user._id}
+              userId={id}
               type={transformation.type as TransformationTypeKey}
               creditBalance={user.creditBalance}
             />

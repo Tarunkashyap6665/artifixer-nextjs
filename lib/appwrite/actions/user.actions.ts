@@ -30,7 +30,7 @@ export async function getUserByIdAppwrite(userId: string) {
       Query.equal("clerkId", userId),
     ]);
 
-    if (!user.documents[0]) throw new Error("User not found by Reading");
+    if (!user.documents[0]) throw new Error("User not found by Reading Appwrite");
 
     return JSON.parse(JSON.stringify(user.documents[0]));
   } catch (error) {
@@ -52,7 +52,7 @@ export async function updateUserAppwrite(clerkId: string, user: UpdateUserParams
       user
     );
 
-    if (!updatedUser) throw new Error("User update failed");
+    if (!updatedUser) throw new Error("User update failed Appwrite");
 
     return JSON.parse(JSON.stringify(updatedUser));
   } catch (error) {
@@ -71,7 +71,7 @@ export async function deleteUserAppwrite(clerkId: string) {
     );
 
     if (!userToDelete.documents[0]) {
-      throw new Error("User not found");
+      throw new Error("User not found Appwrite");
     }
 
     // Delete user
@@ -102,7 +102,7 @@ export async function updateCreditsAppwrite(userId: string, creditFee: number) {
       }
     );
 
-    if (!updatedUserCredits) throw new Error("User credits update failed");
+    if (!updatedUserCredits) throw new Error("User credits update failed Appwrite");
 
     return JSON.parse(JSON.stringify(updatedUserCredits));
   } catch (error) {

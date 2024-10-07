@@ -19,7 +19,7 @@ export async function createUserMongoDB(user: CreateUserParams) {
 }
 
 // READ
-export async function getUserByIdMongoDB(userId: string) {
+export async function getUserByIdMongoDB(userId: string|null) {
   try {
     await connectToDatabase();
 

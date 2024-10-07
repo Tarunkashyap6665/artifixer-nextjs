@@ -3,11 +3,13 @@ import { headers } from "next/headers";
 import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
 import {
   createUserAppwrite,
+  deleteUserAppwrite,
   updateUserAppwrite,
 } from "@/lib/appwrite/actions/user.actions";
 import {
   createUserMongoDB,
   deleteUserMongoDB,
+  getUserByIdMongoDB,
   updateUserMongoDB,
 } from "@/lib/mongodb/actions/user.actions";
 
@@ -119,7 +121,11 @@ export async function POST(req: Request) {
     const { id } = evt.data;
     let deletedUser;
     try {
-      deletedUser = await deleteUserMongoDB(id!);
+      deletedUser = await deleteUserAppwrite(id!);
+      const isUserExistInMongoDB = await getUserByIdMongoDB(id!);
+      if (isUserExistInMongoDB && isUserExistInMongoDB._id) {
+        await deleteUserMongoDB(id!);
+      }
     } catch (error) {
       deletedUser = await deleteUserMongoDB(id!);
     }

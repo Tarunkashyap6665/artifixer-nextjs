@@ -5,6 +5,7 @@ const isProtectedRoute = createRouteMatcher(["/transformations(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   await getOrCreateDB();
+
   if (isProtectedRoute(req)) auth().protect();
 });
 
