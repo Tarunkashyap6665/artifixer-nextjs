@@ -1,3 +1,4 @@
+import { freePlanCredits } from "@/constants";
 import { model, models, Schema } from "mongoose";
 
 const UserSchema=new Schema({
@@ -8,7 +9,7 @@ const UserSchema=new Schema({
     firstName:{type:String},
     lastName:{type:String},
     planId:{type:Number},
-    creditBalance:{type:Number,default:10}
+    creditBalance:{type:Number,default:freePlanCredits}
 })
 
 const User=models?.User||model("User",UserSchema);

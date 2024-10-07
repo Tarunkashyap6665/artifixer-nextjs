@@ -257,11 +257,11 @@ export const plans = [
     name: "Free",
     icon: "/assets/icons/free-plan.svg",
     price: 0,
-    credits: 15,
+    credits: 20,
     isAvailable: true,
     inclusions: [
       {
-        label: "15 Free Credits",
+        label: "20 Free Credits",
         isIncluded: true,
       },
       {
@@ -422,6 +422,8 @@ export const defaultValues = {
 };
 
 export const creditFee = -1;
+
+export const freePlanCredits = plans[0].credits;
 
 export const teamMembers = [
   {

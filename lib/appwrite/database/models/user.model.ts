@@ -1,6 +1,7 @@
 import { Permission } from "node-appwrite";
 import { databases } from "../config";
 import { DB_NAME, USER_COLLECTION } from "../name";
+import { freePlanCredits } from "@/constants";
 
 export default async function createUsersCollection() {
     // Creating Collection
@@ -21,7 +22,7 @@ export default async function createUsersCollection() {
         databases.createStringAttribute(DB_NAME, USER_COLLECTION, "firstName", 50, false),
         databases.createStringAttribute(DB_NAME, USER_COLLECTION, "lastName", 50, false),
         databases.createIntegerAttribute(DB_NAME, USER_COLLECTION, "planId", false,0,10,1),
-        databases.createIntegerAttribute(DB_NAME, USER_COLLECTION, "creditBalance", false,0,10000,15),
+        databases.createIntegerAttribute(DB_NAME, USER_COLLECTION, "creditBalance", false,0,10000,freePlanCredits),
     ]);
     console.log("User Attributes Created");
 }
