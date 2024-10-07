@@ -1,6 +1,7 @@
 import TransformationForm from '@/components/shared/TransformationForm'
 import { transformationTypes } from '@/constants'
-import { getUserById } from '@/lib/appwrite/actions/user.actions'
+import { getUserByIdAppwrite } from '@/lib/appwrite/actions/user.actions'
+import { deleteUserMongoDB, getUserByIdMongoDB } from '@/lib/mongodb/actions/user.actions'
 import { auth } from '@clerk/nextjs/server'
 import { Metadata } from 'next'
 import React from 'react'
@@ -16,11 +17,21 @@ export const generateMetadata = ({ params: { type } }: SearchParamProps): Metada
 const AddTransformationTypePage = async ({ params: { type } }: SearchParamProps) => {
   const transformation = transformationTypes[type];
   const { userId } = auth();
+  let user;
+
+  try {
+
+    user = await getUserByIdAppwrite(userId!);
+    const isUserExistInMongoDB=await getUserByIdMongoDB(userId!)
+    if(isUserExistInMongoDB && isUserExistInMongoDB._id){
+        await deleteUserMongoDB(userId!)
+    }
+  } catch (error) {
+
+    user = await getUserByIdMongoDB(userId!);
+  }
 
 
-
-  const user = await getUserById(userId!);
-  
   return (
     <div className=" py-16  bg-gray-100 px-4 sm:px-6 lg:px-8">
       <div className="max-w-3xl mx-auto">

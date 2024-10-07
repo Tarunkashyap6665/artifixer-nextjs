@@ -1,6 +1,7 @@
 import { PricingCard } from "@/components/PricingCard";
 import { plans } from "@/constants";
-import { getUserById } from "@/lib/appwrite/actions/user.actions";
+import { getUserByIdAppwrite } from "@/lib/appwrite/actions/user.actions";
+import { deleteUserMongoDB, getUserByIdMongoDB } from "@/lib/mongodb/actions/user.actions";
 import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import React from "react";
@@ -8,16 +9,26 @@ import React from "react";
 export const generateMetadata = (): Metadata => {
   return {
     title: "Pricing",
-    description:"Choose the plan that's right for you and get started with our powerful AI tools."
+    description: "Choose the plan that's right for you and get started with our powerful AI tools."
 
   }
 }
 
-const page = async() => {
+const page = async () => {
   const { userId } = auth();
   let user = null;
-  if(userId) {
-    user= await getUserById(userId)
+  if (userId) {
+    try {
+
+      user = await getUserByIdAppwrite(userId);
+      const isUserExistInMongoDB = await getUserByIdMongoDB(userId)
+      if (isUserExistInMongoDB && isUserExistInMongoDB._id) {
+        await deleteUserMongoDB(userId)
+      }
+    } catch (error) {
+
+      user = await getUserByIdMongoDB(userId)
+    }
   }
 
 

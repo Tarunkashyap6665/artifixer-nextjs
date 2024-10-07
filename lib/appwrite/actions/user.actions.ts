@@ -8,7 +8,7 @@ import { ID, Query } from "node-appwrite";
 import { handleError } from "@/lib/utils";
 
 // CREATE
-export async function createUser(user: CreateUserParams) {
+export async function createUserAppwrite(id:string,user: CreateUserParams) {
   try {
     const newUser = await databases.createDocument(
       DB_NAME,
@@ -23,24 +23,14 @@ export async function createUser(user: CreateUserParams) {
   }
 }
 
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
 // READ
-export async function getUserById(userId: string) {
+export async function getUserByIdAppwrite(userId: string) {
   try {
-    // await delay(1000)
-    let user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
+    const user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
       Query.equal("clerkId", userId),
     ]);
 
-    if (!user.documents[0]) {
-      delay(400);
-      user = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
-        Query.equal("clerkId", userId),
-      ]);
-    }
+    if (!user.documents[0]) throw new Error("User not found by Reading");
 
     return JSON.parse(JSON.stringify(user.documents[0]));
   } catch (error) {
@@ -49,7 +39,7 @@ export async function getUserById(userId: string) {
 }
 
 // UPDATE
-export async function updateUser(clerkId: string, user: UpdateUserParams) {
+export async function updateUserAppwrite(clerkId: string, user: UpdateUserParams) {
   try {
     const usr = await databases.listDocuments(DB_NAME, USER_COLLECTION, [
       Query.equal("clerkId", clerkId),
@@ -71,7 +61,7 @@ export async function updateUser(clerkId: string, user: UpdateUserParams) {
 }
 
 // DELETE
-export async function deleteUser(clerkId: string) {
+export async function deleteUserAppwrite(clerkId: string) {
   try {
     // Find user to delete
     const userToDelete = await databases.listDocuments(
@@ -99,7 +89,7 @@ export async function deleteUser(clerkId: string) {
 }
 
 // USE CREDITS
-export async function updateCredits(userId: string, creditFee: number) {
+export async function updateCreditsAppwrite(userId: string, creditFee: number) {
   try {
     const usr = await databases.getDocument(DB_NAME, USER_COLLECTION, userId);
 

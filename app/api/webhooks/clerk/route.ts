@@ -1,7 +1,16 @@
 import { Webhook } from "svix";
 import { headers } from "next/headers";
 import { clerkClient, WebhookEvent } from "@clerk/nextjs/server";
-import { createUser, deleteUser, updateUser } from "@/lib/appwrite/actions/user.actions";
+import {
+  createUserAppwrite,
+  updateUserAppwrite,
+} from "@/lib/appwrite/actions/user.actions";
+import {
+  createUserMongoDB,
+  deleteUserMongoDB,
+  updateUserMongoDB,
+} from "@/lib/mongodb/actions/user.actions";
+
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -65,15 +74,19 @@ export async function POST(req: Request) {
       username: username!,
       firstName: first_name,
       lastName: last_name,
-      photo: image_url
+      photo: image_url,
     };
-    const newUser = await createUser(user);
+    const newUser = await createUserMongoDB(user);
+
+    if (newUser._id) {
+      await createUserAppwrite(newUser._id, user);
+    }
 
     // Set public metadata
     if (newUser) {
       await clerkClient().users.updateUserMetadata(id, {
         publicMetadata: {
-          userId: newUser.$id,
+          userId: newUser._id,
         },
       });
     }
@@ -91,8 +104,12 @@ export async function POST(req: Request) {
       username: username!,
       photo: image_url,
     };
-
-    const updatedUser = await updateUser(id, user);
+    let updatedUser;
+    try {
+      updatedUser = await updateUserAppwrite(id, user);
+    } catch (error) {
+      updatedUser = await updateUserMongoDB(id, user);
+    }
 
     return NextResponse.json({ message: "OK", user: updatedUser });
   }
@@ -100,8 +117,12 @@ export async function POST(req: Request) {
   // DELETE
   if (eventType === "user.deleted") {
     const { id } = evt.data;
-
-    const deletedUser = await deleteUser(id!);
+    let deletedUser;
+    try {
+      deletedUser = await deleteUserMongoDB(id!);
+    } catch (error) {
+      deletedUser = await deleteUserMongoDB(id!);
+    }
 
     return NextResponse.json({ message: "OK", user: deletedUser });
   }

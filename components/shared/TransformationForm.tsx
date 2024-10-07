@@ -22,7 +22,8 @@ import { useEffect, useState, useTransition } from "react"
 import { AspectRatioKey, dataUrl, debounce, deepMergeObjects, download, getImageSize } from "@/lib/utils"
 import MediaUploader from "./MediaUploader"
 import TransformedImage from "./TransformedImage"
-import { updateCredits } from "@/lib/appwrite/actions/user.actions"
+import { updateCreditsAppwrite } from "@/lib/appwrite/actions/user.actions"
+import { updateCreditsMongoDB } from "@/lib/mongodb/actions/user.actions"
 import { CldImage, getCldImageUrl } from "next-cloudinary"
 import { InsufficientCreditsModal } from "./InsufficientCreditsModal"
 import { FiDownloadCloud, FiRotateCw } from "react-icons/fi"
@@ -109,7 +110,13 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
     )
     setNewTransformation(null)
     startTransition(async () => {
-      await updateCredits(userId, creditFee)
+      try {
+        
+        await updateCreditsAppwrite(userId, creditFee)
+      } catch (error) {
+        
+        await updateCreditsMongoDB(userId, creditFee)
+      }
 
     })
     toast({
