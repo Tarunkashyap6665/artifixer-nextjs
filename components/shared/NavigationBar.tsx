@@ -15,13 +15,27 @@ import {
 import MegaMenu from './MegaMenu';
 import { navLinks } from '@/constants';
 import Link from 'next/link';
-import { SignedIn, SignedOut} from '@clerk/nextjs';
+import { SignedIn, SignedOut, useUser} from '@clerk/nextjs';
 import { FaRobot, FaUserCircle } from 'react-icons/fa';
 import { ProfileButton } from './ProfileButton';
+import { getCookie, hasCookie, setCookie } from 'cookies-next';
+import { generateRandomUserData } from '@/lib/utils';
 
 
 
 function NavList() {
+  if(!hasCookie("role")){
+    setCookie("role","guest",{
+      maxAge:28*24*60*60
+    })
+    if(!hasCookie('guest')){
+      const guest_user=generateRandomUserData()
+      setCookie("guest",guest_user,{
+        maxAge:28*24*60*60
+      })
+    }
+  }
+
   return (
     <List className="mt-4 mb-6 p-0 lg:mt-0 lg:mb-0 lg:flex-row lg:p-1" placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>
       {navLinks.map((link, key) => (
@@ -56,6 +70,27 @@ export function NavigationBar({user}:{user:any}) {
       () => window.innerWidth >= 960 && setOpenNav(false),
     );
   }, []);
+
+  const authUser=useUser();
+  if(authUser.isSignedIn){
+    setCookie("role","user",{
+      maxAge:28*24*60*60
+    })
+  }
+  else{
+    if(getCookie("role")!="guest"){
+      setCookie("role","guest",{
+        maxAge:28*24*60*60
+      })
+      if(!hasCookie('guest')){
+        const guest_user=generateRandomUserData()
+        setCookie("guest",guest_user,{
+          maxAge:28*24*60*60
+        })
+      }
+    }
+  }
+
 
   return (<>
     <Navbar className="bg-gradient-to-r from-purple-900 to-indigo-900 border-none mx-auto max-w-full rounded-none px-4 py-3" placeholder={undefined} onPointerEnter={() => { } } onPointerLeave={undefined}  onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}>

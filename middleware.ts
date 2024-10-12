@@ -1,12 +1,20 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 import getOrCreateDB from "./lib/appwrite/database/dbSetup";
+import { cookies } from "next/headers";
 
 const isProtectedRoute = createRouteMatcher(["/transformations(.*)"]);
 
 export default clerkMiddleware(async (auth, req) => {
   await getOrCreateDB();
+  if(cookies().has('guest')){
 
-  if (isProtectedRoute(req)) auth().protect();
+    const data = cookies().get('guest')?.value
+    const user= JSON.parse(data!)
+
+  
+    if (user.creditBalance<=0 && isProtectedRoute(req)) auth().protect();
+  }
+
 });
 
 export const config = {

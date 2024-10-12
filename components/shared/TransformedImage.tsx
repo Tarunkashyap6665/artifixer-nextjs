@@ -4,10 +4,9 @@ import { dataUrl, debounce, getImageSize } from '@/lib/utils'
 import { CldImage } from 'next-cloudinary'
 import { PlaceholderValue } from 'next/dist/shared/lib/get-img-props'
 import React from 'react'
-import { FaSpinner } from 'react-icons/fa'
 import { FiImage } from 'react-icons/fi'
 
-const TransformedImage = ({ image, type, transformationConfig, isTransforming, setIsTransforming }: TransformedImageProps) => {
+const TransformedImage = ({ image, type, transformationConfig, setIsTransforming }: TransformedImageProps) => {
 
 
 
@@ -37,7 +36,7 @@ const TransformedImage = ({ image, type, transformationConfig, isTransforming, s
         />
       ) : (
         <div className="w-full h-48 bg-gray-200 rounded-lg flex items-center justify-center">
-          {isTransforming ? <FaSpinner className="animate-spin text-4xl text-blue-500" /> : <FiImage className="h-12 w-12 text-gray-400" />}
+         <FiImage className="h-12 w-12 text-gray-400" />
 
         </div>
       )}

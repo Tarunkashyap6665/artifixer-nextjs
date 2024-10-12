@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
@@ -15,8 +16,6 @@ const BeforeAfterBanner = () => {
     const handleMouseUp = () => {
         setIsDragging(false);
     };
-
-
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement> | React.Touch) => {
         if (isDragging && containerRef.current) {
             const containerRect = containerRef.current.getBoundingClientRect();

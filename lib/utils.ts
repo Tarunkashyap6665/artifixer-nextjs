@@ -5,6 +5,8 @@ import { twMerge } from "tailwind-merge";
 import qs from "qs";
 
 import { aspectRatioOptions } from "@/constants";
+import { ID } from "node-appwrite";
+import { z } from "zod";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -156,3 +158,47 @@ export const deepMergeObjects = (obj1: any, obj2: any) => {
 
   return output;
 };
+
+
+// Random user generator
+
+function getRandomElement(arr:string[]) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateRandomEmail(firstName:string, lastName:string) {
+  const domains = ["example.com", "mail.com", "webmail.com"];
+  const domain = getRandomElement(domains);
+  return `${firstName.toLowerCase()}.${lastName.toLowerCase()}@${domain}`;
+}
+
+export function generateRandomUserData() {
+  const firstNames = ["John", "Jane", "Alex", "Emily", "Michael", "Sarah", "David", "Laura"];
+  const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Miller", "Davis", "Garcia"];
+  
+  const firstName = getRandomElement(firstNames);
+  const lastName = getRandomElement(lastNames);
+  const username = `${firstName.toLowerCase()}_${lastName.toLowerCase()}_${Math.floor(Math.random() * 1000)}`;
+  const email = generateRandomEmail(firstName, lastName);
+  
+  return {
+      clerkId: ID.unique(), // Assuming ID.unique() generates a unique identifier
+      email: email,
+      username: username,
+      photo: "", // You can assign a placeholder URL for a photo if needed
+      firstName: firstName,
+      lastName: lastName,
+      planId: 0,
+      creditBalance: 2,
+      role: "guest"
+  };
+}
+
+
+
+export const formSchema = z.object({
+  aspectRatio: z.string().optional(),
+  color: z.string().optional(),
+  prompt: z.string().optional(),
+  publicId: z.string(),
+})

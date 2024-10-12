@@ -1,14 +1,22 @@
+
 import {
   AdjustmentsHorizontalIcon,
   CameraIcon,
   PhotoIcon,
   SparklesIcon,
-  VideoCameraIcon,
   WindowIcon,
 } from "@heroicons/react/24/solid";
-import { CropIcon } from "@radix-ui/react-icons";
-import { FaCrop, FaEraser, FaPaintBrush, FaTools } from "react-icons/fa";
+import {
+  FaCrop,
+  FaEraser,
+  FaMagic,
+  FaPaintBrush,
+  FaTools,
+} from "react-icons/fa";
 import { GiResize } from "react-icons/gi";
+import { GiSparkyBomb } from "react-icons/gi";
+
+
 
 export const navLinks = [
   // {
@@ -91,6 +99,20 @@ export const navLinks = [
         shortDescription: "AI-powered background removal for images.",
         color: "deep-orange",
       },
+      {
+        title: "Image Enhancer",
+        route: "/tools/image/enhance-image",
+        icon: FaMagic,
+        description:
+          "Enhance the quality and clarity of images with AI-powered tools.",
+        longDescription:
+          "The Image Enhancer tool utilizes advanced AI algorithms to improve the quality of your images, making them sharper, clearer, and more vibrant. Whether you're working with low-resolution images or need to enhance details, this tool can process your images with ease, enhancing brightness, contrast, and overall visual appeal.",
+        mediumDescription:
+          "Use the Image Enhancer to boost image clarity, adjust brightness, sharpen details, and improve overall image quality using AI-powered technology.",
+        shortDescription:
+          "AI-powered tool to enhance image quality and clarity.",
+        color: "teal",
+      },
     ],
   },
   {
@@ -105,7 +127,7 @@ export const navLinks = [
     subItems: [
       {
         title: "Crop Image",
-        route: "/tools/crop-image",
+        route: "/tools/image/crop-image",
         icon: FaCrop,
         description:
           "Restore old or damaged images using AI algorithms for clarity and detail.",
@@ -119,7 +141,7 @@ export const navLinks = [
       },
       {
         title: "Resize Image",
-        route: "/tools/resize-image",
+        route: "/tools/image/resize-image",
         icon: GiResize,
         description:
           "Restore old or damaged images using AI algorithms for clarity and detail.",
@@ -133,7 +155,7 @@ export const navLinks = [
       },
       {
         title: "Background Removal",
-        route: "/tools/background-removal",
+        route: "/tools/image/background-removal",
         icon: CameraIcon,
         description:
           "Effortlessly remove image backgrounds with a single click.",
@@ -146,6 +168,32 @@ export const navLinks = [
       },
     ],
   },
+  {
+    label: "Text Tools",
+    route: "/tools",
+    icon: FaTools,
+    isMegaMenu: true,
+    description:
+      "A comprehensive suite of AI-powered tools to transform and enhance text and images.",
+    longDescription:
+      "Explore a variety of AI-driven text tools designed to generate, enhance, and modify both text and images. Whether you want to create visuals from text or manipulate text content, our tools provide seamless, creative solutions.",
+    subItems: [
+      {
+        title: "Text2Image",
+        route: "/tools/text/text-to-image",
+        icon: GiSparkyBomb ,
+        description:
+          "Generate stunning images from text descriptions using advanced AI models.",
+        longDescription:
+          "The Text2Image tool lets you transform textual descriptions into high-quality images, powered by state-of-the-art AI technology like Stable Diffusion. Simply input your text and watch as your imagination comes to life with detailed, AI-generated visuals.",
+        mediumDescription:
+          "Turn text into vivid images using AI-powered text-to-image conversion.",
+        shortDescription: "Generate images from text descriptions.",
+        color: "lime",
+      },
+    ],
+  },
+
   // {
   //   label: "Pricing",
   //   route: "/pricing",
@@ -227,7 +275,7 @@ export const aiPoweredTools = [
   },
   {
     title: "Crop Image",
-    route: "/tools/crop-image",
+    route: "/tools/image/crop-image",
     icon: FaCrop,
     description: "Easily crop images to your desired dimensions.",
     longDescription:
@@ -239,7 +287,7 @@ export const aiPoweredTools = [
   },
   {
     title: "Resize Image",
-    route: "/tools/resize-image",
+    route: "/tools/image/resize-image",
     icon: GiResize,
     description: "Resize images while maintaining quality and aspect ratio.",
     longDescription:
@@ -248,6 +296,32 @@ export const aiPoweredTools = [
       "Adjust image dimensions while keeping the original quality intact. Great for resizing images for different platforms and uses.",
     shortDescription: "Resize images without losing quality.",
     color: "blue",
+  },
+  {
+    title: "Image Enhancer",
+    route: "/tools/image/enhance-image",
+    icon: FaMagic,
+    description:
+      "Enhance the quality and clarity of images with AI-powered tools.",
+    longDescription:
+      "The Image Enhancer tool utilizes advanced AI algorithms to improve the quality of your images, making them sharper, clearer, and more vibrant. Whether you're working with low-resolution images or need to enhance details, this tool can process your images with ease, enhancing brightness, contrast, and overall visual appeal.",
+    mediumDescription:
+      "Use the Image Enhancer to boost image clarity, adjust brightness, sharpen details, and improve overall image quality using AI-powered technology.",
+    shortDescription: "AI-powered tool to enhance image quality and clarity.",
+    color: "teal",
+  },
+  {
+    title: "Text2Image",
+    route: "/tools/text/text-to-image",
+    icon: GiSparkyBomb ,
+    description:
+      "Generate stunning images from text descriptions using advanced AI models.",
+    longDescription:
+      "The Text2Image tool lets you transform textual descriptions into high-quality images, powered by state-of-the-art AI technology like Stable Diffusion. Simply input your text and watch as your imagination comes to life with detailed, AI-generated visuals.",
+    mediumDescription:
+      "Turn text into vivid images using AI-powered text-to-image conversion.",
+    shortDescription: "Generate images from text descriptions.",
+    color: "amber",
   },
 ];
 

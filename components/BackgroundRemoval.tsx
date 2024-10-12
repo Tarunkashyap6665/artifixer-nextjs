@@ -194,7 +194,7 @@ const BackgroundRemoval = () => {
 
   return (
 
-    <div className="shadow-lg rounded-lg">
+    <div className="bg-white shadow-lg rounded-lg">
 
       {originalImage ?
 
@@ -276,7 +276,7 @@ const BackgroundRemoval = () => {
 
                       )}
                       <Link
-                        href={"/tools/crop-image"}
+                        href={"/tools/image/crop-image"}
                         className={`mt-6 mb-3 w-1/2  py-2 px-4 rounded-md  focus:outline-none focus:ring-2  focus:ring-offset-2  flex items-center justify-center bg-yellow-800 text-white hover:bg-yellow-900 focus:ring-yellow-500 transition duration-300 ease-in-out transform hover:scale-[101%]`}>
                         <FiCrop className='mr-2' />
                         Crop

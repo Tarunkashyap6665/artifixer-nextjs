@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-import { GoogleAnalytics} from '@next/third-parties/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -15,11 +15,11 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const generateMetadata=():Metadata=>{
-  return{
-    title:{
-      default:"Artifixer - AI-powered tools for image and text editing",
-      template:"%s - Artifixer"
+export const generateMetadata = (): Metadata => {
+  return {
+    title: {
+      default: "Artifixer - AI-powered tools for image and text editing",
+      template: "%s - Artifixer"
     }
   }
 }
@@ -31,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+
   return (
     <ClerkProvider>
       <html lang="en" className="scroll-smooth">
@@ -38,7 +40,7 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased `}
         >
           {children}
-          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID}/>}
+          {process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID} />}
         </body>
       </html>
     </ClerkProvider>
