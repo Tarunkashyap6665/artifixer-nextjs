@@ -5,6 +5,7 @@ import React from "react";
 export const generateMetadata=():Metadata=>{
   return{
     title:"Cookies Policy",
+    description: "Discover how Artifixer uses cookies to enhance your experience while using our AI-powered tools for image, video, and text processing. Learn more about the data we collect and how we handle it through our Cookies Policy.",
     robots:{
       index:false,
       follow:true

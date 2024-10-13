@@ -11,7 +11,7 @@ export const generateMetadata = ({ params: { type } }: { params: { type: string 
   const toolsType = {
     "text-to-image": {
       title: "Text2Image",
-      description: "Generate stunning images from text descriptions using advanced AI models.",
+      description: "The Text2Image tool lets you transform textual descriptions into high-quality images, powered by state-of-the-art AI technology like Stable Diffusion. Simply input your text and watch as your imagination comes to life with detailed, AI-generated visuals.",
     },
    
   }

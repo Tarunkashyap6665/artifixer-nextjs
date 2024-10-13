@@ -5,6 +5,7 @@ import React from 'react'
 export const generateMetadata=():Metadata=>{
   return{
     title:"Privacy Policy",
+    description: "Review Artifixer's Privacy Policy to understand how we collect, use, and protect your personal information while using our AI-powered tools for image, video, and text processing.",
     robots:{
       index:false,
       follow:true

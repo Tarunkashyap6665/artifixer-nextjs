@@ -5,7 +5,7 @@ import React from "react";
 export const generateMetadata=():Metadata=>{
   return{
     title:"About Us",
-    description:"Empowering creativity through cutting-edge AI solutions for image, video, and text."
+    description: "Learn more about Artifixer, a leading SaaS platform providing AI-powered tools for image, video, and text processing. Discover our mission to empower creators with innovative solutions for seamless content creation."
     
   }
 }

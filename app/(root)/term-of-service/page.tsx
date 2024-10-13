@@ -5,6 +5,7 @@ import React from 'react'
 export const generateMetadata=():Metadata=>{
   return{
     title:"Term of Service",
+    description: "Understand the terms and conditions for using Artifixer's AI-powered tools for image, video, and text processing. Our Terms of Service outline your rights, responsibilities, and guidelines for using our platform.",
     robots:{
       index:false,
       follow:true

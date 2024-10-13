@@ -16,22 +16,22 @@ export const generateMetadata = ({ params: { type } }: { params: { type: string 
   const toolsType = {
     "crop-image": {
       title: "Crop Image",
-      description: "Easily crop images to your desired dimensions.",
+      description: "Image Restore helps users bring life back to damaged, old, or low-quality images by enhancing clarity and fixing defects through advanced AI techniques. The tool intelligently removes scratches, blemishes, and other imperfections while preserving the original essence of the image.",
 
     },
     "resize-image": {
       title: "Resize Image",
-      description: "Resize images while maintaining quality and aspect ratio.",
+      description: "Image Restore helps users bring life back to damaged, old, or low-quality images by enhancing clarity and fixing defects through advanced AI techniques. The tool intelligently removes scratches, blemishes, and other imperfections while preserving the original essence of the image.",
 
     },
     "background-removal": {
       title: "Background Removal",
-      description: "Effortlessly remove image backgrounds with a single click.",
+      description:  "Background Remove leverages AI to separate the foreground subject from the background, offering a clean removal for any type of image. This tool is ideal for product photography, social media, or any scenario requiring quick background edits.",
 
     },
     "enhance-image": {
       title: "Image Enhancer",
-      description: "Enhance the quality and clarity of images with AI-powered tools.",
+      description: "The Image Enhancer tool utilizes advanced AI algorithms to improve the quality of your images, making them sharper, clearer, and more vibrant. Whether you're working with low-resolution images or need to enhance details, this tool can process your images with ease, enhancing brightness, contrast, and overall visual appeal.",
 
     },
   }

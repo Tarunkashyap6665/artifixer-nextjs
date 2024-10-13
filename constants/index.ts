@@ -411,6 +411,8 @@ export const transformationTypes = {
     type: "restore",
     title: "Restore Image",
     subTitle: "Refine images by removing noise and imperfections",
+    description:
+      "Image Restore helps users bring life back to damaged, old, or low-quality images by enhancing clarity and fixing defects through advanced AI techniques. The tool intelligently removes scratches, blemishes, and other imperfections while preserving the original essence of the image.",
     config: { restore: true },
     icon: "image.svg",
   },
@@ -418,6 +420,8 @@ export const transformationTypes = {
     type: "removeBackground",
     title: "Background Remove",
     subTitle: "Removes the background of the image using AI",
+    description:
+          "Background Remove leverages AI to separate the foreground subject from the background, offering a clean removal for any type of image. This tool is ideal for product photography, social media, or any scenario requiring quick background edits.",
     config: { removeBackground: true },
     icon: "camera.svg",
   },
@@ -425,6 +429,8 @@ export const transformationTypes = {
     type: "fill",
     title: "Generative Fill",
     subTitle: "Enhance an image's dimensions using AI outpainting",
+    description:
+          "Generative Fill allows users to repair or enhance images by filling missing or incomplete sections with AI-generated content. This powerful tool blends new content with existing visuals, maintaining the natural look of the image without any visible patches or inconsistencies.",
     config: { fillBackground: true },
     icon: "stars.svg",
   },
@@ -432,6 +438,8 @@ export const transformationTypes = {
     type: "remove",
     title: "Object Remove",
     subTitle: "Identify and eliminate objects from images",
+    description:
+    "Object Remove enables users to select and eliminate unwanted objects from images with precision. This tool uses AI to reconstruct the background and ensures the removal looks natural, leaving no trace of the removed object.",
     config: {
       remove: { prompt: "", removeShadow: true, multiple: true },
     },
@@ -441,6 +449,8 @@ export const transformationTypes = {
     type: "recolor",
     title: "Object Recolor",
     subTitle: "Identify and recolor objects from the image",
+    description:
+          "Object Recolor offers users the ability to modify the colors of specific objects within an image while maintaining realistic shading and gradients. Perfect for creative edits or design enhancements, this tool uses AI to ensure color transitions are smooth and natural.",
     config: {
       recolor: { prompt: "", to: "", multiple: true },
     },

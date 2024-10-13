@@ -9,7 +9,7 @@ import React from "react";
 export const generateMetadata = (): Metadata => {
   return {
     title: "Pricing",
-    description: "Choose the plan that's right for you and get started with our powerful AI tools."
+    description: "Explore Artifixer's flexible pricing plans for our AI-powered tools. Whether you're an individual creator or a business, choose from free or premium options tailored to your image, video, and text processing needs."
 
   }
 }

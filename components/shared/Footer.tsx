@@ -1,5 +1,4 @@
 "use client"
-import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from "react-icons/fa";
 
 export function Footer() {
   return (
@@ -33,10 +32,8 @@ export function Footer() {
             <div>
               <h4 className="text-xl font-semibold mb-4">Connect</h4>
               <div className="flex space-x-4">
-                <a href="#" className="text-gray-300 hover:text-white"><FaFacebook size={24} /></a>
-                <a href="#" className="text-gray-300 hover:text-white"><FaTwitter size={24} /></a>
-                <a href="#" className="text-gray-300 hover:text-white"><FaInstagram size={24} /></a>
-                <a href="#" className="text-gray-300 hover:text-white"><FaLinkedin size={24} /></a>
+                <a href="mailto:support@artifixer.tech" className="text-gray-300 hover:text-white"> support@artifixer.tech</a>
+                
               </div>
             </div>
           </div>

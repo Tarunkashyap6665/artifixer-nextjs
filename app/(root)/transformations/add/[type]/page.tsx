@@ -12,7 +12,7 @@ export const generateMetadata = ({ params: { type } }: SearchParamProps): Metada
   const transformation = transformationTypes[type];
   return {
     title: transformation.title,
-    description: transformation.subTitle
+    description: transformation.description
   }
 }
 
