@@ -106,3 +106,26 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: 'Failed to process the request' }, { status: 500 });
   }
 }
+
+export async function GET() {
+
+  const url = 'https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/health';
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`,  // Add the bearer token here
+    },
+  };
+
+  const response = await fetch(url, options);
+
+  if (response.status==200) {
+    
+    return NextResponse.json(response,{ status: 200 })
+  }
+  
+  if(response.status==400){
+    return NextResponse.json({ title:"Bad Request",result: "Use a different image as the image is not proper format." }, { status: 400 });
+  }
+}

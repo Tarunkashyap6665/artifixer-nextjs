@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useCallback, useContext, startTransition } from 'react';
+import React, { useState, useCallback, useContext, startTransition, useEffect } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { FaSpinner } from 'react-icons/fa';
 import { FiUploadCloud, FiImage, FiRotateCw, FiDownloadCloud } from 'react-icons/fi';
@@ -25,6 +25,22 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
   const imageContext = useContext(ImageContext)
   const [openDailog, setOpenDailog] = useState(false);
   const handleOpen = () => setOpenDailog(!openDailog);
+
+  useEffect(() => {
+    
+    (async () => {
+      try {
+        await fetch("/api/transformation/imageEnhancer", {
+          method: "GET",
+        });
+        // Handle response here if needed
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    })(); // Immediately invoking the async function
+    
+  }, [])
+  
 
 
   const onDrop = useCallback((acceptedFiles: File[]) => {

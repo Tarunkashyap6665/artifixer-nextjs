@@ -4,7 +4,7 @@ import { toast } from "@/hooks/use-toast";
 import { updateCreditsAppwrite } from "@/lib/appwrite/actions/user.actions";
 import { updateCreditsMongoDB } from "@/lib/mongodb/actions/user.actions";
 import { getCookie, hasCookie, setCookie } from "cookies-next";
-import React, { startTransition, useState } from "react";
+import React, { startTransition, useEffect, useState } from "react";
 import { FaImage, FaCheck } from "react-icons/fa";
 import { FiDownloadCloud } from "react-icons/fi";
 import { Button, Dialog, DialogBody, DialogFooter, DialogHeader } from "@material-tailwind/react"
@@ -22,6 +22,22 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
     const [isLoading, setIsLoading] = useState(false);
     const [open, setOpen] = useState(false);
     const handleOpen = () => setOpen(!open);
+
+    useEffect(() => {
+    
+        (async () => {
+          try {
+            const res=await fetch("/api/transformation/textToImage", {
+              method: "GET",
+            });
+            // Handle response here if needed
+            console.log(res)
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        })(); // Immediately invoking the async function
+        
+      }, [])
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
