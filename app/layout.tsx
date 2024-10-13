@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GoogleAnalytics } from '@next/third-parties/google'
+import GoogleAdsense from "@/components/Icons/GoogleAdsense";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,6 +42,7 @@ export default function RootLayout({
         >
           {children}
           {process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID && <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTIC_MEASUREMENT_ID} />}
+          {process.env.GOOGLE_ADSENSE_ID && <GoogleAdsense pId={process.env.GOOGLE_ADSENSE_ID}/>}
         </body>
       </html>
     </ClerkProvider>
