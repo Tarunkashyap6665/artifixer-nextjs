@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { GoogleAnalytics } from '@next/third-parties/google'
-import GoogleAdsense from "@/components/Icons/GoogleAdsense";
+import GoogleAdsense from "@/components/GoogleAdsense";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
