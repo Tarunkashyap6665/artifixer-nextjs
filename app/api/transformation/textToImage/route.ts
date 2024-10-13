@@ -63,7 +63,7 @@ export async function POST(req: Request) {
     const options = {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`,  // Add the bearer token here
+        'Authorization': `Bearer ${process.env.TEXT_TO_IMAGE__API_TOKEN}`,  // Add the bearer token here
       },
     };
   
