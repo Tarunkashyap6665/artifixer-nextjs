@@ -9,8 +9,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const url =
-    "https://8000-01j9vxs65b4343b00trw0c19zh.cloudspaces.litng.ai/predict";
+  const url = `${process.env.TEXT_TO_IMAGE_API}/predict`;
 
   // Assuming the image is being sent from the frontend in the request body
   const data = await req.json();
@@ -19,7 +18,7 @@ export async function POST(req: Request) {
     method: "POST",
     body: JSON.stringify(data),
     headers: {
-      Authorization: `Bearer ${process.env.TEXT_TO_IMAGE__API_TOKEN}`, // Add the bearer token here
+      Authorization: `Bearer ${process.env.TEXT_TO_IMAGE_API_TOKEN}`, // Add the bearer token here
       "Content-Type": "application/json",
     },
   };
@@ -63,12 +62,12 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const url =
-    "https://8000-01j9vxs65b4343b00trw0c19zh.cloudspaces.litng.ai/health";
+    `${process.env.TEXT_TO_IMAGE_API}/health`
 
   const options = {
     method: "GET",
     headers: {
-      Authorization: `Bearer ${process.env.TEXT_TO_IMAGE__API_TOKEN}`, // Add the bearer token here
+      Authorization: `Bearer ${process.env.TEXT_TO_IMAGE_API_TOKEN}`, // Add the bearer token here
     },
   };
 

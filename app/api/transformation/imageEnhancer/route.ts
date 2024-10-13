@@ -52,8 +52,7 @@ export async function POST(req: Request) {
     });
   }
 
-  const url =
-    "https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/predict";
+  const url = `${process.env.IMAGE_ENHANCER_API}/predict`;
   const formData = new FormData();
 
   // Assuming the image is being sent from the frontend in the request body
@@ -111,7 +110,7 @@ export async function POST(req: Request) {
 
 export async function GET() {
   const url =
-    "https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/health";
+    `${process.env.IMAGE_ENHANCER_API}/health`
 
   const options = {
     method: "GET",
