@@ -27,11 +27,11 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
     
         (async () => {
           try {
-            const res=await fetch("/api/transformation/textToImage", {
+            await fetch("/api/transformation/textToImage", {
               method: "GET",
             });
             // Handle response here if needed
-            console.log(res)
+            
           } catch (error) {
             console.error("Error fetching data:", error);
           }
@@ -61,7 +61,6 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                 body: JSON.stringify(formData)
             })
             const response = await data.json()
-            setIsLoading(false);
     
             if (data.status == 200) {
                 setGeneratedImage(response.result);
@@ -75,7 +74,7 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
     
                 })
             }
-            else if (data.status == 400) {
+            else{
                 setGeneratedImage(null);
                 setDownloadImage("")
                 setIsLoading(false);
@@ -175,7 +174,10 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                         type="text"
                         id="positiveText"
                         value={positiveText}
-                        onChange={(e) => setPositiveText(e.target.value)}
+                        onChange={(e) => {
+                            setPositiveText(e.target.value)
+                            setIsLoading(false)
+                        }}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="Enter positive text"
                         aria-label="Enter positive text for image generation"
@@ -189,7 +191,10 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                         type="text"
                         id="negativeText"
                         value={negativeText}
-                        onChange={(e) => setNegativeText(e.target.value)}
+                        onChange={(e) => {
+                            setNegativeText(e.target.value)
+                            setIsLoading(false)
+                        }}
                         className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         placeholder="Enter negative text"
                         aria-label="Enter negative text for image generation"
@@ -203,7 +208,10 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                         <select
                             id="width"
                             value={width}
-                            onChange={(e) => setWidth(Number(e.target.value))}
+                            onChange={(e) => {
+                                setWidth(Number(e.target.value))
+                                setIsLoading(false)
+                            }}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             aria-label="Select width for generated image"
                         >
@@ -220,7 +228,10 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                         <select
                             id="height"
                             value={height}
-                            onChange={(e) => setHeight(Number(e.target.value))}
+                            onChange={(e) => {
+                                setHeight(Number(e.target.value))
+                                setIsLoading(false)
+                            }}
                             className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             aria-label="Select height for generated image"
                         >

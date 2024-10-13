@@ -53,6 +53,7 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
       const result = e.target?.result as string; // Type assertion
       setOriginalImage(result);
       setTransformedImage(null);
+      setTransformedImageLoading(false)
     };
 
     reader.readAsDataURL(file);
@@ -87,9 +88,16 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
         setDownloadImage(response.result)
         imageContext?.setImage(response.result)
         setTransformedImageLoading(false);
+        toast({
+          title: `Image transformed successfully`,
+          description: '1 credit was deducted from your',
+          duration: 5000,
+          className: 'success-toast'
+  
+        })
   
       }
-      else if (data.status == 400) {
+      else{
         setTransformedImage(null);
         setDownloadImage("")
         imageContext?.setImage("")
@@ -103,13 +111,7 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
         })
       }
 
-      toast({
-        title: `Image transformed successfully`,
-        description: '1 credit was deducted from your',
-        duration: 5000,
-        className: 'success-toast'
-
-      })
+      
     } catch (error) {
       console.log(error)
     }

@@ -5,10 +5,10 @@ import { NextResponse } from "next/server";
 // Function to convert Data URL to a Blob
 function dataURLtoBlob(dataurl: string): Blob | null {
   // Split the data URL at the comma
-  const arr = dataurl.split(',');
+  const arr = dataurl.split(",");
 
   const mimeMatch = arr[0].match(/:(.*?);/);
-  
+
   if (!mimeMatch) {
     // Handle the error case when match() fails
     console.error("Invalid data URL format.");
@@ -43,89 +43,97 @@ function dataURLtoFile(dataurl: string, filename: string): File | null {
   return new File([blob], filename, { type: blob.type });
 }
 
-
-
-
 export async function POST(req: Request) {
   // Ensure the request method is POST
 
-  if (req.method !== 'POST') {
-    return (new Response('Only POST requests are allowed', {
-      status: 405
-    }))
+  if (req.method !== "POST") {
+    return new Response("Only POST requests are allowed", {
+      status: 405,
+    });
   }
 
-  const url = 'https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/predict';
+  const url =
+    "https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/predict";
   const formData = new FormData();
 
   // Assuming the image is being sent from the frontend in the request body
   const { image, fileName } = await req.json();
 
-
-
-
   // Convert the Data URL to a File object
   const imageFile = dataURLtoFile(image, fileName);
 
-
-
   // Append image to formData (if you are sending the image in base64 or file, handle accordingly)
-  formData.append('file', imageFile!);
+  formData.append("file", imageFile!);
 
   const options = {
-    method: 'POST',
+    method: "POST",
     body: formData,
     headers: {
-      'Authorization': `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`,  // Add the bearer token here
+      Authorization: `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`, // Add the bearer token here
     },
   };
-
-
 
   try {
     const response = await fetch(url, options);
 
-    if(response.status==200){
-
+    if (response.status == 200) {
       const result = await response.arrayBuffer();
       // Convert ArrayBuffer to Buffer
       const buffer = Buffer.from(result);
-  
-      const base64Image = buffer.toString('base64');
-  
+
+      const base64Image = buffer.toString("base64");
+
       // Create data URL
       const imgSrc = `data:image/png;base64,${base64Image}`;
-  
-      
-      return NextResponse.json({ result: imgSrc }, { status: 200 });
-    }
-    if(response.status==400){
-      return NextResponse.json({ title:"Bad Request",result: "Use a different image as the quality is not good.." }, { status: 400 });
+
+      return NextResponse.json({ result: imgSrc }, { status: response.status });
+    } else if (response.status == 400) {
+      return NextResponse.json(
+        {
+          title: "Bad Request",
+          result: "Use a different image as the quality is not good..",
+        },
+        { status: response.status }
+      );
+    } else {
+      return NextResponse.json(
+        { title: response.statusText, result: "Server Error..." },
+        { status: response.status }
+      );
     }
   } catch (error) {
-    return NextResponse.json({ error: 'Failed to process the request' }, { status: 500 });
+    return NextResponse.json(
+      { title: "Error", result: "Failed to process the request" },
+      { status: 500 }
+    );
   }
 }
 
 export async function GET() {
-
-  const url = 'https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/health';
+  const url =
+    "https://8000-01j9vdg60dpp2x119d3v6b4w3k.cloudspaces.litng.ai/health";
 
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      'Authorization': `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`,  // Add the bearer token here
+      Authorization: `Bearer ${process.env.IMAGE_ENHANCER_API_TOKEN}`, // Add the bearer token here
     },
   };
 
   const response = await fetch(url, options);
 
-  if (response.status==200) {
-    
-    return NextResponse.json(response,{ status: 200 })
-  }
-  
-  if(response.status==400){
-    return NextResponse.json({ title:"Bad Request",result: "Use a different image as the image is not proper format." }, { status: 400 });
+  if (response.status == 200) {
+    return NextResponse.json(
+      { title: "Status", result: response.statusText },
+      { status: 200 }
+    );
+  } else {
+    return NextResponse.json(
+      {
+        title: "Bad Request",
+        result: "Use a different image as the image is not proper format.",
+      },
+      { status: response.status }
+    );
   }
 }
