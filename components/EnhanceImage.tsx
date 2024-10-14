@@ -214,7 +214,7 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
                     <div className='flex flex-col md:flex-row md:gap-4'>
                       <button
                         onClick={handleDownload}
-                        className={`md:mt-6 mb-3 w-full  py-2 px-4 rounded-md order-1 md:order-none  focus:outline-none focus:ring-2  focus:ring-offset-2  flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 transition duration-300 ease-in-out transform hover:scale-[101%]`}
+                        className={`mt-6 mb-3 w-full  py-2 px-4 rounded-md order-1 md:order-none  focus:outline-none focus:ring-2  focus:ring-offset-2  flex items-center justify-center bg-green-600 text-white hover:bg-green-700 focus:ring-green-500 transition duration-300 ease-in-out transform hover:scale-[101%]`}
 
                       >
                         <FiDownloadCloud className="mr-2" />
@@ -263,12 +263,12 @@ const EnhanceImage = ({ userId, creditBalance }: { userId: string, creditBalance
             variant="text"
             color="red"
             onClick={handleOpen}
-            className="mr-1" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
+            className="mr-2" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
             <span>Cancel</span>
           </Button>
           <Link
             href="/sign-in"
-            className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition uppercase duration-300"
+            className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition focus:ring-2 focus:ring-offset-2 uppercase duration-300"
           >
             Login / Sign Up
           </Link>

@@ -306,12 +306,12 @@ const TextToImage = ({ userId, creditBalance }: { userId: string, creditBalance:
                     variant="text"
                     color="red"
                     onClick={handleOpen}
-                    className="mr-1" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
+                    className="mr-2" placeholder={undefined} onPointerEnterCapture={undefined} onPointerLeaveCapture={undefined}    >
                     <span>Cancel</span>
                 </Button>
                 <Link
                     href="/sign-in"
-                    className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition uppercase duration-300"
+                    className="bg-indigo-600 text-white px-6 py-3 rounded-lg text-xs font-semibold hover:bg-indigo-700 transition uppercase duration-300 ocus:ring-2 focus:ring-offset-2"
                 >
                     Login / Sign Up
                 </Link>
