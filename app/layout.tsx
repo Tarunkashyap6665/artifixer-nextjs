@@ -21,7 +21,8 @@ export const generateMetadata = (): Metadata => {
     title: {
       default: "Artifixer - AI-powered tools for image and text editing",
       template: "%s - Artifixer"
-    }
+    },
+    
   }
 }
 
